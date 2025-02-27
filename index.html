@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+
+    <meta name="viewport" content="width=1024">
+
+    <title>Lucky Wheel</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<header>
+    <div class="banner-media" style="background-color: rgb(200, 1, 1); height: 50px;">
+    </div>
+
+    <div class="banner">
+        <div class="banner-top d-flex   justify-content-center">
+            <div class="align-items-center">
+                <a href="#" target="_blank" rel="noopener noreferrer">
+                    <i class="logo"> </i>
+                </a>
+            </div>
+            <div id="cate" class="mx-3">
+                <h2 class="h4 fs-4 fw-light">danh mục</h2>
+            </div>
+            <div id="search" class="mx-3 ">
+                <div class="input-group align-items-center mb-3 rounded-pill">
+                    <span class="input-group-text">Tìm</span>
+                    <input type="text" class=" form-control"
+                        aria-label="Dollar amount (with dot and two decimal places)">
+                </div>
+            </div>
+            <div id="login" class="mx-3 d-flex align-items-center">
+                <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.<path d="M352 96l64 0c17.7 0 32 14.3 32 32l0 256c0 17.7-14.3 32-32 32l-64 0c-17.7 0-32 14.3-32 32s14.3 32 32 32l64 0c53 0 96-43 96-96l0-256c0-53-43-96-96-96l-64 0c-17.7 0-32 14.3-32 32s14.3 32 32 32zm-9.4 182.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L242.7 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l210.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128z"/></svg> -->
+                <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                <h2 class="h4 fs-4 fw-light mx-2">Đăng nhập</h2>
+            </div>
+            <div id="cart" class="mx-3 d-flex align-items-center">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <h2 class="h4 fs-4 fw-light mx-2">Giỏ hàng</h2>
+            </div>
+        </div>
+    </div>
+    <div id="bot-menu">
+        <ul class="d-flex justify-content-center">
+
+            <li>
+                loa kéo
+            </li>
+            <li>
+                camera
+            </li>
+            <li>
+                bếp gas
+            </li>
+            <li>
+                xe đạp
+            </li>
+            <li>
+                lò vi sóng
+            </li>
+            <li>
+                vay tiền mặt
+            </li>
+            <li>
+                máy sấy tóc
+            </li>
+            <li>
+                hàng trưng bày
+            </li>
+            <li>
+                hút bụi nệm giường
+            </li>
+        </ul>
+        </ul>
+    </div>
+</header>
+
+<body>
+
+    <canvas id="canvas" width="500" height="500"></canvas>
+    <button id="spinButton">Quay</button>
+
+
+    <!-- Popup thông báo trúng thưởng -->
+    <div id="prizePopup" class="popup">
+        <div class="popup-content">
+            <span class="close">&times;</span>
+            <h2>🎉 Chúc mừng! 🎉</h2>
+            <p id="prizeText"></p>
+            <img id="prizeImage" src="" alt="Phần thưởng" />
+            <input class=" form-control m-2" type="number" id="sdt" value="123456789"
+                placeholder="Nhập số điện thoại để được nhận thưởng" />
+            <input disabled class=" form-control m-2" value="" type="text" id="code" placeholder="" />
+            <div id="thongbao_1">
+                <h4 class="text-danger fs-6">
+                    Tiền thưởng sẽ được chuyển vào số điện thoại.
+                </h4>
+                <h4 class="text-danger fs-6">
+                    Vui lòng kiểm tra chính xác
+                </h4>
+                <h4 id="thongbao_tontai" class="text-primary fs-6 d-none">
+                    Số điện thoại đã được nhận thưởng. Vui Lòng Nhập Số Khác
+                </h4>
+            </div>
+            <div id="thongbao_2" class="d-none">
+                <h4 class="text-danger fs-6">
+                    Chúc Mừng Bạn Đã Nhận Được Phần Thưởng. Tiền sẽ được chuyển vào điện thoại trong 30p
+                </h4>
+                <h4 class="text-primary fs-6">
+                    Chia sẻ để nhận nhiều thẻ card hơn
+                </h4>
+
+            </div>
+            <div id="thongbao_3" class="d-none">
+                <h4 class="text-danger fs-6">
+                    Số điện thoại này đã được nhận thưởng
+                </h4>
+                <h4 class="text-primary fs-6">
+                    Hãy nhập số mới để nhận cơ hội phần quà
+                </h4>
+
+            </div>
+            <!-- Thanh Progress -->
+            <div id="progressBarWrap" class="progress my-2 bg-primary d-none">
+                <div id="progressBar" class="progress-bar   progress-bar-striped progress-bar-animated" role="progressbar"
+                    style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                </div>
+            </div>
+            <button disabled id="getPrize" class="btn btn-danger">Nhận thưởng</button>
+        </div>
+    </div>
+
+
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/winwheel@2.7.0"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script src=".//library/plugins/javascript-winwheel-master/javascript-winwheel-master/Winwheel.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="./script.js"></script>
+    <script nonce="random123">
+        console.log("Script này được phép chạy nhờ nonce.");
+    </script>
+</body>
+<footer>
+    
+</footer>
+
+</html>

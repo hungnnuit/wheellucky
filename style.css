@@ -1,0 +1,114 @@
+#canvas {
+    display: block;
+    margin: auto;
+    background-color: #f8f8f8;
+}
+body{
+    font-family: Arial, sans-serif;
+    margin: 0 auto;
+    padding: 0;
+    background-color: #f8f8f8;
+    width: 1024px;
+    text-align: center;
+}
+
+#spinButton {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+#spinButton:hover {
+    background-color: #2980b9;
+}
+
+/* CSS cho popup */
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    background: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.popup-content {
+    position: relative;
+}
+
+.popup img {
+    width: 150px;
+    height: 150px;
+    margin: 10px 0;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+}
+.logo {
+    background-image: url('.//library/picture/iconnew-min.png');
+    background-repeat: no-repeat;
+    background-position: 2px -191px;
+    display: inline-block;
+    height: 60px;
+    width: 310px;
+    line-height: 85px;
+    vertical-align: middle;
+    background-size: 418px 377px;
+}
+.banner{
+    color: white;
+    font-weight: 100;
+    background-color: #2a83e9;
+    height: 60px;
+}
+#cate h2{
+    height: 100%;
+    padding: 0px 15px;
+    border-radius: 2px;
+}
+#cate :hover{
+    background-color: #fafbfc;
+    color: #2a83e9;
+}
+#bot-menu{
+    padding-bottom: 0;
+    height: 32px;
+    background-color: #eaecf0;
+    text-align: center;
+}
+
+#bot-menu ul{
+    list-style-type: none; /* Bỏ dấu chấm đầu của mỗi ul li */
+}
+#bot-menu ul li{
+    color: #2a83e9;
+    padding: 0 15px;
+}
+#search{
+    padding-top: 10px;
+}
+footer{
+    background-image: url('.//library/picture/footer.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: 0 0;
+    height: 200px;
+
+}
