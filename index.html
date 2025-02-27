@@ -1,13 +1,19 @@
+<script>
+    const serverPath = 'localhost:3000';
+    // const serverPath = 'dienmayxannhh.com';
+
+</script>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
-
+    <link rel="icon" type="image/png" href="/library/picture/iconDMX.jpeg"> 
     <meta name="viewport" content="width=1024">
 
-    <title>Lucky Wheel</title>
+    <title>Điện máy xanh kỉ niệm 20 năm thành lập</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -16,7 +22,7 @@
 </head>
 
 <header>
-    <div class="banner-media" style="background-color: rgb(200, 1, 1); height: 50px;">
+    <div class="banner-media" >
     </div>
 
     <div class="banner">
@@ -84,8 +90,92 @@
 
 <body>
 
-    <canvas id="canvas" width="500" height="500"></canvas>
-    <button id="spinButton">Quay</button>
+    <div class="container">
+        <div class="row cateWrap">
+            <div class=" col-12">
+                <h4 class="mt-1 titleWrap">Vòng quay may mắn</h4>
+                <div id="countDown">
+                    <span style="color: white;">Chỉ còn: </span>
+                    <span class="cd" id="hours"></span>:      
+                    <span class="cd" id="minutes"></span>: 
+                    <span class="cd" id="seconds"></span> 
+                </div>
+                <div class="wheel-container rounded">
+                    <canvas id="canvas" width="800" height="800"></canvas>
+                    <button id="spinButton">Quay</button>
+                </div>
+            </div>
+        </div>
+        <div id="slide" class="row cateWrap slideContainer">
+            <div class="slide slide1">
+                <div id="slide11"  class="contentSLide me-2 ">
+
+                </div>
+                <div id="slide12" class="contentSLide">  
+                </div>
+            </div>
+            <div class="slide slide2 hidden">
+                <div id="slide21"  class="contentSLide me-2 ">
+
+                </div>
+                <div id="slide22" class="contentSLide">  
+                </div>
+            </div>
+        </div>
+        <div class="row cateWrap">
+            <h4 class="mt-1 titleWrap">Gian hàng ưu đãi</h4>
+            <div class=" bannerUudai col-4">
+                <img src="/library/picture/uudai1.png" alt="">
+            </div>
+            <div class=" bannerUudai col-4">
+                <img src="/library/picture/uudai2.png" alt="">
+            </div>
+            <div class=" bannerUudai col-4">
+                <img src="/library/picture/uudai3.png" alt="">
+            </div>
+        </div>
+        <div class="row cateWrap">
+            <h4 class="mt-1 titleWrap">Gợi ý cho bạn</h4>
+            <div class="rowGoiyWrap my-2 d-flex">
+                <div class="goiyWrap">
+                    <img src="./library/picture/goiy6.png" alt="">
+                </div>
+                <div class="goiyWrap">
+                    <img src="./library/picture/goiy7.png" alt="">
+                </div>
+                <div class="goiyWrap">
+                    <img src="./library/picture/goiy8.png" alt="">
+                </div>
+                <div class="goiyWrap">
+                    <img src="./library/picture/goiy9.png" alt="">
+                </div>
+                <div class="goiyWrap">
+                    <img src="./library/picture/goiy1.png" alt="">
+                </div>
+            </div>
+            <div class="rowGoiyWrap d-flex mb-3">
+                <div class="goiyWrap">
+                    <img src="./library/picture/goiy1.png" alt="">
+                </div>
+                <div class="goiyWrap">
+                    <img src="./library/picture/goiy2.png" alt="">
+                </div>
+                <div class="goiyWrap">
+                    <img src="./library/picture/goiy3.png" alt="">
+                </div>
+                <div class="goiyWrap">
+                    <img src="./library/picture/goiy4.png" alt="">
+                </div>
+                <div class="goiyWrap">
+                    <img src="./library/picture/goiy5.png" alt="">
+                </div>
+            </div>
+        </div>
+        
+        <div id="kmBanner" class="row cateWrap">
+            
+        </div>
+    </div>
 
 
     <!-- Popup thông báo trúng thưởng -->
@@ -95,7 +185,7 @@
             <h2>🎉 Chúc mừng! 🎉</h2>
             <p id="prizeText"></p>
             <img id="prizeImage" src="" alt="Phần thưởng" />
-            <input class=" form-control m-2" type="number" id="sdt" value="123456789"
+            <input class=" form-control m-2" type="number" id="sdt" value="098611122"
                 placeholder="Nhập số điện thoại để được nhận thưởng" />
             <input disabled class=" form-control m-2" value="" type="text" id="code" placeholder="" />
             <div id="thongbao_1">
@@ -127,6 +217,12 @@
                 </h4>
 
             </div>
+            <div id="thongbao_4" class="d-none">
+                <h4 class="text-danger fs-6">
+                    Số điện thoại k hợp lệ. Số điện thoại phải có 10 số và có các đầu số 09, 03, 08, 07, 05
+                </h4>
+
+            </div>
             <!-- Thanh Progress -->
             <div id="progressBarWrap" class="progress my-2 bg-primary d-none">
                 <div id="progressBar" class="progress-bar   progress-bar-striped progress-bar-animated" role="progressbar"
@@ -150,7 +246,7 @@
         console.log("Script này được phép chạy nhờ nonce.");
     </script>
 </body>
-<footer>
+<footer class="mt-2">
     
 </footer>
 
