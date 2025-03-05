@@ -73,24 +73,37 @@ body{
 
 /* CSS cho popup */
 .popup {
-    font-size: 40px;
+    font-size: 80px;
     display: none;
     position: fixed;
     z-index: 999;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 800px;
+    width: 90%;
+
+    /* max-width: 800px; */
     background: white;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     text-align: center;
     padding: 20px;
     border-radius: 10px;
 }
+.popup h4{
+    font-size: 40px;
+}
 
+#getPrize{
+    padding: 5;
+    font-size: 40px;
+}
 
 .popup-content {
     position: relative;
+}
+
+#prizePopup input{
+    font-size: smaller;
 }
 
 .popup img {

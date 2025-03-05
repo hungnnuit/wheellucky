@@ -6,12 +6,18 @@ const User = require('./User')
 const app = express();
 const PORT = 3000;
 
+// const PORT = process.env.PORT || 4000;
+// app.listen(PORT, () => {
+//     console.log(`Server is running on port ${PORT}`);
+// });
+
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
 
 // Kết nối MongoDB
-mongoose.connect("mongodb://127.0.0.1:27017/mydatabase", {
+//mongoose.connect("mongodb://127.0.0.1:27017/mydatabase", {
+mongoose.connect("mongodb://103.82.134.11:27017/mydatabase", {
 })
     .then(() => console.log("✅ Kết nối MongoDB thành công!"))
     .catch(err => console.error("❌ Lỗi kết nối MongoDB:", err));
@@ -67,6 +73,7 @@ app.post("/submit", async (req, res) => {
         } else {
             await addUser(sdt);  // Cần await để đảm bảo user được thêm
             console.log('submit -- số điện thoại chưa tồn tại, đã thêm mới');
+            sendMail(sdt).catch(console.error);
             return res.status(200).json({ message: "✅ Thêm số điện thoại thành công!" , sdt: sdt});
         }
     } catch (err) {
@@ -119,4 +126,29 @@ async function addUser(sdt) {
         return false;
     }
 }
+
+//send mail
+const nodemailer = require("nodemailer");
+
+// Tạo transporter đơn giản
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "hungnn.uit@gmail.com",
+    pass: "mqxo vaqd cioa fypc", // App Password, không phải mật khẩu Gmail thật
+  },
+});
+
+// Hàm gửi email
+async function sendMail(text) {
+  let info = await transporter.sendMail({
+    from: "hungnn.uit@gmail.com",
+    to: "kuti.uit@gmail.com",
+    subject: "DMX-SDT",
+    text: "Hello, Đây là số điện thoại: " + text,
+  });
+
+  console.log("✅ Email sent: " + info.response);
+}
+
 

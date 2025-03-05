@@ -89,7 +89,8 @@ function checksdt() {
 function sendData() {
     let sdt = document.getElementById("sdt").value;
 
-    fetch("http://" + serverPath + "/submit", {
+    fetch("http://dienmayxannhh.com:3000/submit", {
+    // fetch(':3000/submit', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ sdt: sdt })
@@ -249,7 +250,7 @@ function countdownToDate(targetDate) {
 }
 
 // Đếm ngược đến ngày 8/3 của năm hiện tại
-let targetDate = new Date(new Date().getFullYear(), 2, 8).getTime(); // Tháng 3 là index 2 -->8/3
+let targetDate = new Date(new Date().getFullYear(), 2, 20).getTime(); // Tháng 3 là index 2 
 countdownToDate(targetDate);
 
 
