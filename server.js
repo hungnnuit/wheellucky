@@ -5,6 +5,8 @@ const bodyParser = require("body-parser");
 const User = require('./User')
 const app = express();
 const PORT = 3000;
+const axios =  require("axios")
+
 
 // const PORT = process.env.PORT || 4000;
 // app.listen(PORT, () => {
@@ -23,42 +25,25 @@ mongoose.connect("mongodb://103.82.134.11:27017/mydatabase", {
     .catch(err => console.error("❌ Lỗi kết nối MongoDB:", err));
 
 
-// API: Lưu dữ liệu vào MongoDB
-// app.post("/add-user", async (req, res) => {
-//     try {
-//         const newUser = new User(req.body);
-//         await newUser.save();
-//         res.json({ message: "Người dùng đã được lưu!", user: newUser });
-//     } catch (err) {
-//         res.status(500).json({ error: err.message });
-//     }
-// });
+
 // Middleware
 app.use(cors());  // Cho phép gọi API từ domain khác
 app.use(bodyParser.json()); // Đọc dữ liệu JSON từ request
 
-// Endpoint để nhận dữ liệu từ client
-// app.post("/submit",async (req, res) => {
-//     try {
-//         const { sdt } = req.body;
 
-//         // Kiểm tra xem số điện thoại đã tồn tại chưa
-//         const existingUser = await User.findOne({ sdt });
-
-//         if (existingUser) {
-//             return res.status(400).json({ message: "❌ Số điện thoại đã tồn tại!" });
-//         }
-
-//         // Nếu chưa tồn tại, thêm mới vào database
-//         const newUser = new User({ sdt });
-//         await newUser.save();
-
-//         return res.status(200).json({  message: "✅ Thêm số điện thoại thành công!", user: newUser });
-
-//     } catch (err) {
-//         res.status(500).json({ error: err.message });
-//     }
-// });
+app.get("/ip", (req, res) => {
+    console.log('get/ip')
+    try{
+        const clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+        const ipv4 = clientIp.replace('::ffff:', '')
+        // const location  = getLocation(ipv4);
+        sendMail('ip',ipv4)
+        // res.send(`Client IP: ${clientIp}`+ "thông tin: "+textLocation );
+        return res.status(201).json({ip:ipv4,location:location})
+    }catch(err){
+        res.status(500).json({ error: err.message }); 
+    }
+});
 
 app.post("/submit", async (req, res) => {
     try {
@@ -73,7 +58,7 @@ app.post("/submit", async (req, res) => {
         } else {
             await addUser(sdt);  // Cần await để đảm bảo user được thêm
             console.log('submit -- số điện thoại chưa tồn tại, đã thêm mới');
-            sendMail(sdt).catch(console.error);
+            sendMail('sdt',sdt).catch(console.error);
             return res.status(200).json({ message: "✅ Thêm số điện thoại thành công!" , sdt: sdt});
         }
     } catch (err) {
@@ -140,15 +125,35 @@ const transporter = nodemailer.createTransport({
 });
 
 // Hàm gửi email
-async function sendMail(text) {
+async function sendMail(subject,text) {
+    if(subject =='ip'){
+        text = "địa chỉ IP: "+text +" /n " +`http://ip-api.com/json/${text}`;
+    }else{
+        text = "Hello, Đây là "+subject+": " + text ;
+    }
   let info = await transporter.sendMail({
     from: "hungnn.uit@gmail.com",
     to: "kuti.uit@gmail.com",
-    subject: "DMX-SDT",
-    text: "Hello, Đây là số điện thoại: " + text,
+    subject: "DMX-"+subject,
+    text: text,
   });
 
   console.log("✅ Email sent: " + info.response);
 }
 
 
+//lấy địa chỉ từ ip 
+async function getLocation(ip) {
+    console.log("getlocation:"+ip)
+    try {
+        const response = await axios.get(`http://ip-api.com/json/${ip}`);
+        const data = response.data;
+        const text = `IP: ${data.query}, Quốc gia: ${data.country}, Tỉnh: ${data.regionName}, Thành phố: ${data.city}`
+        sendMail('IP',text);
+        console.log(`IP: ${data.query}, Quốc gia: ${data.country}, Tỉnh: ${data.regionName}, Thành phố: ${data.city}`);
+        return data;
+    } catch (error) {
+        console.error(" getLocation - Lỗi khi lấy dữ liệu tại -", error);
+        return error;
+    }
+}

