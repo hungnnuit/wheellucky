@@ -285,7 +285,7 @@ function sendIp(){
     .then(response => response.text())
     .then(data => {
         console.log(data)
-        alert(data)
+        // alert(data)
     })
     .catch(error => {
         alert(error)
